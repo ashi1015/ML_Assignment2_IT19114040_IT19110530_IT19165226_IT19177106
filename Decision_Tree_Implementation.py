@@ -57,3 +57,7 @@ x_val = encoded_training_df.drop(columns='Loan_Status_Y')
 # Assign the Load_Status_Y column to y_val
 y_val = encoded_training_df['Loan_Status_Y']
 
+# Splitting the datset into training and testing data
+X_training, X_testing, y_training, y_testing = train_test_split(x_val, y_val, test_size = 0.2, stratify = y_val, 
+                                                                random_state = 42)
+																
