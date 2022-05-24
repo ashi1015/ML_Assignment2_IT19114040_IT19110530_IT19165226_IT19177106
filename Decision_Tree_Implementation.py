@@ -48,3 +48,12 @@ plt.subplots_adjust(hspace=1)
 # drop_first = True -> reduces the extra column created when creating the dummy variables.(reduces the correlation among the dummy variables)
 encoded_training_df = pd.get_dummies(training_df, drop_first = True)
 encoded_training_df.head()
+
+# Splitting features and target varibles
+
+# Drop the Load_Status_Y column in the dataset & Assign the encoded categorical features
+x_val = encoded_training_df.drop(columns='Loan_Status_Y')
+
+# Assign the Load_Status_Y column to y_val
+y_val = encoded_training_df['Loan_Status_Y']
+
