@@ -39,3 +39,12 @@ for idx,cat_col in enumerate(numerical_data_col_array):
 
 print(training_df[numerical_data_col_array].describe())
 plt.subplots_adjust(hspace=1)
+
+#Data Preprocessing
+
+# Categrical Features Encoding
+
+# Converting the categorical variables into dummy variables
+# drop_first = True -> reduces the extra column created when creating the dummy variables.(reduces the correlation among the dummy variables)
+encoded_training_df = pd.get_dummies(training_df, drop_first = True)
+encoded_training_df.head()
