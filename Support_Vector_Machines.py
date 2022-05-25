@@ -28,3 +28,15 @@ loan_tarin_df4.describe()
 
 # Count the number of missing values in each column
 loan_tarin_df4.isnull().sum()
+
+# Dropping missing value rows
+loan_tarin_df4 = loan_tarin_df4.dropna()
+
+# Final Dataset Shape
+loan_tarin_df4.shape
+
+# Dependent Column Values
+loan_tarin_df4['Dependents'].value_counts()
+
+# Replacing 3+ values with 4
+loan_tarin_df4 = loan_tarin_df4.replace(to_replace = '3+', value = 4)
