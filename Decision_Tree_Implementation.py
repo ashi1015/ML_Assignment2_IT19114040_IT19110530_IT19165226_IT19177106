@@ -65,3 +65,19 @@ impute = SimpleImputer(strategy='mean')
 impute_training = impute.fit(X_training)
 X_training = impute_training.transform(X_training)
 X_testing_impute = impute_training.transform(X_testing)
+
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.model_selection import cross_val_score
+from sklearn.metrics import accuracy_score,f1_score
+
+decision_tree_classification = DecisionTreeClassifier()
+decision_tree_classification.fit(X_training, y_training)
+
+y_prediction = decision_tree_classification.predict(X_training)
+
+print("Accuracy of the training dataset : ", accuracy_score(y_training, y_prediction))
+print("F1 Score of the training dataset : ", f1_score(y_training, y_prediction))
+
+print("Validation Mean F1 Score: ", cross_val_score(decision_tree_classification, X_training, y_training, cv = 5, scoring = 'f1_macro').mean())
+print("Validation Mean Accuracy: ", cross_val_score(decision_tree_classification, X_training, y_training, cv = 5, scoring = 'accuracy').mean())
+
