@@ -40,3 +40,24 @@ loan_tarin_df4['Dependents'].value_counts()
 
 # Replacing 3+ values with 4
 loan_tarin_df4 = loan_tarin_df4.replace(to_replace = '3+', value = 4)
+
+# Marial Status and Loan Status
+seaborn.countplot(x='Married', hue='Loan_Status', data = loan_tarin_df4)
+
+# Education and Loan Status
+seaborn.countplot(x='Education', hue='Loan_Status', data = loan_tarin_df4)
+
+# Gender and Loan Status
+seaborn.countplot(x='Gender', hue='Loan_Status', data = loan_tarin_df4)
+
+# Gender and Loan Status
+seaborn.countplot(x='Property_Area', hue='Loan_Status', data = loan_tarin_df4)
+
+numerical_columns = ['ApplicantIncome', 'CoapplicantIncome', 'LoanAmount']
+print(numerical_columns)
+fig,axes = plt.subplots(1,3,figsize=(17,5))
+for idx,cat_col in enumerate(numerical_columns):
+    seaborn.boxplot(y=cat_col,data=loan_tarin_df4,x='Loan_Status',ax=axes[idx])
+
+print(loan_tarin_df4[numerical_columns].describe())
+plt.subplots_adjust(hspace=1)
