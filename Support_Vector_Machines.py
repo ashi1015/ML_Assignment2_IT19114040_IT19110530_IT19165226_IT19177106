@@ -92,3 +92,19 @@ classifier = svm.SVC(kernel = 'linear')
 
 # Training data of the data set
 classifier.fit(X_train, Y_train)
+
+# Training data accuracy of the data set
+X_train_prediction = classifier.predict(X_train)
+training_data_accuracy = accuracy_score(X_train_prediction, Y_train)
+training_data_accuracy
+
+# Test data accuracy of the data set
+X_test_prediction = classifier.predict(X_test)
+testing_data_accuracy = accuracy_score(X_test_prediction, Y_test)
+testing_data_accuracy
+
+print("Train Accuracy: ",accuracy_score(X_train_prediction, Y_train))
+print("Test Accuracy: ",accuracy_score(X_test_prediction, Y_test))
+print("Test F1 Score: ",f1_score(X_test_prediction, Y_test))
+print("Confusion Matrix on Test Data")
+pandas .crosstab(X_test_prediction, Y_test, rownames=['True'], colnames=['Predicted'], margins=True)
