@@ -117,3 +117,13 @@ decision_tree_classification.fit(X_training, y_training)
 dot_data = tree.export_graphviz(decision_tree_classification, feature_names = x_val.columns.tolist()) #dot_data
 graph = graphviz.Source(dot_data)
 graph
+
+# Accuracy & Confussion matrix
+decision_tree_classification = DecisionTreeClassifier(max_depth=3, min_samples_leaf = 35)
+decision_tree_classification.fit(X_training, y_training)
+y_training_prediction = decision_tree_classification.predict(X_testing_impute)
+print("Decision Tree Test Accuracy: ",accuracy_score(y_testing, y_training_prediction))
+print("Decision TreeTest F1 Score: ",f1_score(y_testing, y_training_prediction))
+print("")
+print("Confusion Matrix on Test Data - Decision Tree")
+pd.crosstab(y_testing, y_training_prediction, rownames=['True'], colnames=['Predicted'], margins=True)
