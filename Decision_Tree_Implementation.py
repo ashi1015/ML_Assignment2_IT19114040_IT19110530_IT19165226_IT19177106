@@ -81,3 +81,32 @@ print("F1 Score of the training dataset : ", f1_score(y_training, y_prediction))
 print("Validation Mean F1 Score: ", cross_val_score(decision_tree_classification, X_training, y_training, cv = 5, scoring = 'f1_macro').mean())
 print("Validation Mean Accuracy: ", cross_val_score(decision_tree_classification, X_training, y_training, cv = 5, scoring = 'accuracy').mean())
 
+dt_training_accuracy = []
+dt_val_accuracy = []
+dt_training_f1 = []
+dt_val_f1 = []
+dt_tree_depths = []
+
+for depth in range(1,20):
+    decision_tree_classification = DecisionTreeClassifier(max_depth=depth)
+    decision_tree_classification.fit(X_training, y_training)
+    y_training_prediction = decision_tree_classification.predict(X_training)
+
+    dt_training_acc = accuracy_score(y_training, y_training_prediction)
+    dt_train_f1 = f1_score(y_training, y_training_prediction)
+    dt_val_mean_f1 = cross_val_score(decision_tree_classification, X_training, y_training, cv = 5, scoring = 'f1_macro').mean()
+    dt_val_mean_accuracy = cross_val_score(decision_tree_classification, X_training, y_training, cv = 5, scoring = 'accuracy').mean()
+    
+    dt_training_accuracy.append(dt_training_acc)
+    dt_val_accuracy.append(dt_val_mean_accuracy)
+    dt_training_f1.append(dt_train_f1)
+    dt_val_f1.append(dt_val_mean_f1)
+    dt_tree_depths.append(depth)
+    
+dt_Tuning_Max_depth = {"Training Accuracy": dt_training_accuracy, "Validation Accuracy": dt_val_accuracy, "Training F1": dt_training_f1, "Validation F1":dt_val_f1, "Max_Depth": dt_tree_depths }
+dt_Tuning_Max_depth_df = pd.DataFrame.from_dict(dt_Tuning_Max_depth)
+
+dt_plot_df = dt_Tuning_Max_depth_df.melt('Max_Depth',var_name='Metrics',value_name="Values")
+fig,ax = plt.subplots(figsize=(15,5))
+sns.pointplot(x="Max_Depth", y="Values",hue="Metrics", data=dt_plot_df,ax=ax)
+
