@@ -110,3 +110,10 @@ dt_plot_df = dt_Tuning_Max_depth_df.melt('Max_Depth',var_name='Metrics',value_na
 fig,ax = plt.subplots(figsize=(15,5))
 sns.pointplot(x="Max_Depth", y="Values",hue="Metrics", data=dt_plot_df,ax=ax)
 
+# Decision Tree Visualization
+
+decision_tree_classification = tree.DecisionTreeClassifier(max_depth = 3)
+decision_tree_classification.fit(X_training, y_training) 
+dot_data = tree.export_graphviz(decision_tree_classification, feature_names = x_val.columns.tolist()) #dot_data
+graph = graphviz.Source(dot_data)
+graph
